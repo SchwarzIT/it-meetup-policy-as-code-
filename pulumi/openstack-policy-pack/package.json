@@ -1,0 +1,12 @@
+{
+    "name": "openstack-policy-pack",
+    "version": "0.0.1",
+    "dependencies": {
+        "@pulumi/openstack": "^2.3.0",
+        "@pulumi/pulumi": "^2.8.0",
+        "@pulumi/policy": "^1.2.0"
+    },
+    "devDependencies": {
+        "@types/node": "^14.0.27"
+    }
+}
