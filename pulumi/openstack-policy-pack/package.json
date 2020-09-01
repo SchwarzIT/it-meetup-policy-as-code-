@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "dependencies": {
         "@pulumi/openstack": "^2.3.0",
-        "@pulumi/pulumi": "^2.8.0",
+        "@pulumi/pulumi": "^2.8.2",
         "@pulumi/policy": "^1.2.0"
     },
     "devDependencies": {
