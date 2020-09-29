@@ -1,13 +1,9 @@
-package kubernetes
-
-name = input.metadata.name
-
-labels {
-    input.metadata.labels["pulumi"]
-}
+package kubernetes.validating.images
 
 deny[msg] {
-  input.kind = "Deployment"
-  not labels
-  msg = sprintf("%s must include recommended label: pulumi ", [name])
+	some i
+	input.kind == "Deployment"
+    image := input.spec.template.spec.containers[i].image
+    not startswith(image, "docker.repo.schwarz/")
+	msg := sprintf("Image '%v' comes from untrusted registry", [image])
 }

@@ -1,0 +1,24 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8svalidimages
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sValidImages
+        listKind: K8sValidImagesList
+        plural: k8svalidimage
+        singular: k8svalidimages
+
+  targets:
+    - rego: |
+        package k8svalidimages
+
+        violation[{"msg": msg}] {
+            container := input.review.object.spec.containers[_]
+            satisfied := [good | repo = input.parameters.repos[_] ; good = startswith(container.image, repo)]
+            not any(satisfied)
+            msg := sprintf("container <%v> has an invalid image repo <%v>, allowed repos are %v", [container.name, container.image, input.parameters.repos])
+        }
+      target: admission.k8s.gatekeeper.sh

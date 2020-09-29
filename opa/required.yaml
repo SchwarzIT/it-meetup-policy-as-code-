@@ -1,11 +1,14 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
-kind: K8sRequiredLabels
+kind: K8sValidImages
 metadata:
-  name: ns-must-have-labels
+  name: deployment-must-have-valid-images
 spec:
   match:
     kinds:
       - apiGroups: [""]
-        kinds: ["Namespace"]
+        kinds: ["Pod"]
+    namespaces:
+      - "default"
   parameters:
-    labels: ["pulumi"]
+    repos:
+      - "docker.repo.schwarz/"
